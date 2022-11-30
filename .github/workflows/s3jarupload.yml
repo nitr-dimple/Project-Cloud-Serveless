@@ -51,7 +51,7 @@ jobs:
   
       - name: Upload Zip to S3
         run: |
-          aws s3 cp ./webservice s3://${{ secrets.SERVLESS_BUCKET }}
+          aws s3 cp ./webservice/csye6225lambda-1.jar s3://${{ secrets.SERVLESS_BUCKET }}
 
       - name: Lambda update
         run: |
