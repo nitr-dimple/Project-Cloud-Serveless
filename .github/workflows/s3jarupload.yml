@@ -53,7 +53,17 @@ jobs:
         run: |
           aws s3 sync ./webservice s3://${{ secrets.SERVLESS_BUCKET }}
 
+      - name: Creating new version for Launch Templates
+        run: |
+          aws ec2 create-launch-template-version --launch-template-name ${secrets.LAUNCH_TEMPLATE_NAME}\
+          --source-version '$Latest' \
+          --launch-template-data '{"ImageId":"ami-054e42e0f3d715d5a"}'
 
-
+      - name: run autoscaling refresh 
+        run: |
+           aws --profile dev autoscaling start-instance-refresh \
+           --auto-scaling-group-name ${ secrets.AUTOSCALING_GROUP_NAME } \
+           --strategy Rolling --desired-configuration \
+           '{"LaunchTemplate": {"LaunchTemplateName":"${{ secrets.LAUNCH_TEMPLATE_NAME }}", "Version":"$Latest"}}
 
 
