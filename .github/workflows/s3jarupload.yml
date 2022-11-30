@@ -67,5 +67,5 @@ jobs:
            aws --profile dev autoscaling start-instance-refresh \
            --auto-scaling-group-name mystack1-asg \
            --strategy Rolling --desired-configuration \
-           '{"LaunchTemplate": {"LaunchTemplateName":"${{ secrets.LAUNCH_TEMPLATE_NAME }}", "Version":"$Latest"}}
+           '{"LaunchTemplate": {"LaunchTemplateName":"${{ secrets.LAUNCH_TEMPLATE_NAME }}", "Version":"$Latest"}}'
 
