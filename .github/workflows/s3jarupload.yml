@@ -51,21 +51,10 @@ jobs:
   
       - name: Upload Zip to S3
         run: |
-          aws s3 sync ./webservice s3://${{ secrets.SERVLESS_BUCKET }}
+          aws s3 cp ./webservice s3://${{ secrets.SERVLESS_BUCKET }}
 
-      - name: Creating new version for Launch Templates
+      - name: Lambda update
         run: |
-          aws ec2 create-launch-template-version --launch-template-name asg_launch_config \
-          --source-version '$Latest' \
-          --launch-template-data '{"ImageId":"ami-054e42e0f3d715d5a"}'
+          aws lambda update-function-code --function-name lambda_triggred_by_sns --s3-bucket ${{ secrets.SERVLESS_BUCKET }} --s3-key csye6225lambda-1.jar
 
-      - name: Sleep for 60 seconds
-        run: sleep 60s
-
-      - name: run autoscaling refresh 
-        run: |
-           aws autoscaling start-instance-refresh \
-           --auto-scaling-group-name mystack1-asg \
-           --strategy Rolling --desired-configuration \
-           '{"LaunchTemplate": {"LaunchTemplateName":"${{ secrets.LAUNCH_TEMPLATE_NAME }}", "Version":"$Latest"}}'
 
