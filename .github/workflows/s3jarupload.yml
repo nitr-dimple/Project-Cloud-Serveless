@@ -55,15 +55,17 @@ jobs:
 
       - name: Creating new version for Launch Templates
         run: |
-          aws ec2 create-launch-template-version --launch-template-name ${{secrets.LAUNCH_TEMPLATE_NAME}}\
+          aws ec2 create-launch-template-version --launch-template-name asg_launch_config \
           --source-version '$Latest' \
           --launch-template-data '{"ImageId":"ami-054e42e0f3d715d5a"}'
+
+      - name: Sleep for 60 seconds
+        run: sleep 60s
 
       - name: run autoscaling refresh 
         run: |
            aws --profile dev autoscaling start-instance-refresh \
-           --auto-scaling-group-name ${secrets.AUTOSCALING_GROUP_NAME} \
+           --auto-scaling-group-name mystack1-asg \
            --strategy Rolling --desired-configuration \
            '{"LaunchTemplate": {"LaunchTemplateName":"${{ secrets.LAUNCH_TEMPLATE_NAME }}", "Version":"$Latest"}}
-
 
