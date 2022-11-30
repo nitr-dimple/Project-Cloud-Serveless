@@ -51,7 +51,7 @@ jobs:
   
       - name: Upload Zip to S3
         run: |
-          aws s3 sync ./webservice s3://${{ env.SERVLESS_BUCKET }}
+          aws s3 sync ./webservice s3://${{ secrets.SERVLESS_BUCKET }}
 
 
 
