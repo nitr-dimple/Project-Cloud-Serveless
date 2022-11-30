@@ -56,7 +56,7 @@ public class Handler implements RequestHandler<SNSEvent, Object> {
 
         String fromId = "noreply@" + domainName;
 
-        String link = "http://" + domainName + "/v1/verifyUserEmail?email=" + emailId + "&token=" + token;
+        String link = "https://" + domainName + "/v1/verifyUserEmail?email=" + emailId + "&token=" + token;
 
         Email from = new Email(fromId);
 
