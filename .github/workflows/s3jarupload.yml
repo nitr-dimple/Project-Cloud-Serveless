@@ -56,16 +56,3 @@ jobs:
         run: |
           aws lambda update-function-code --function-name ${{ secrets.LAMBDA_FUNCTION }} --s3-bucket ${{ secrets.SERVLESS_BUCKET }} --s3-key csye6225lambda-1.jar
 
-      - name: Creating new version for Launch Templates
-        run: |
-          aws ec2 create-launch-template-version --launch-template-name asg_launch_config \
-          --source-version '$Latest' \
-          --launch-template-data '{"ImageId":"ami-076a4c7cef5f38d00"}'
-
-      - name: Sleep for 60 seconds
-        run: sleep 60s
-
-      - name: run autoscaling refresh 
-        run: |
-           aws autoscaling start-instance-refresh --auto-scaling-group-name mystack1-asg --strategy Rolling --desired-configuration '{"LaunchTemplate": {"LaunchTemplateName":"asg_launch_config", "Version":"$Latest"}}'
-          
