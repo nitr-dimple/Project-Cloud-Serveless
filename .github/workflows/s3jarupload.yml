@@ -3,6 +3,10 @@ name: Jar upload and lambda update
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  #Trigger the workflow on pull request
+  pull_request:
+    branches:
+      - main
 
 jobs:
   #  Creting jar file and saving it to webservice folder
