@@ -60,7 +60,7 @@ public class Handler implements RequestHandler<SNSEvent, Object> {
 
         Email from = new Email(fromId);
 
-        String message = "Hello " + firstName + ",  \n\n" +
+        String message = "Hi " + firstName + ",  \n\n" +
                 "Thank you for registration, Please click on the below link to verify your account: \n\n" +
                 link + "\n\n Regards, \n" + domainName + " \n";
 
