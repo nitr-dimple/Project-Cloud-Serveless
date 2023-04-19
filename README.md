@@ -1,6 +1,5 @@
 # serveless
-#### NUID: 002965372
-#### Name: Dimpleben Kanjibhai Patel<br/>
+
 
 ### Programming Language
 - Java (Jdk 11)
